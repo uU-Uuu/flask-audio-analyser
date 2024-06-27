@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Analysis</title>
+</head>
+<body>
+    <h1>Audio Analysis</h1>
+    <div>
+        <h2>Upload</h2>
+        <label class="upload-label">Upload your audiofile</label>
+        <input type="file" class="input-file" accept=".mp3,.wav">
+        <button class="upload-btn" type="button">Upload file</button>
+        <h2>F0</h2>
+        <div class="f0">
+
+        </div>
+        <label class="f0-label"></label>
+        <button class="f0-btn" type="button">Get F0</button>
+        <button class="f0-spectro-btn" type="button">Get f0 spectrogram</button>
+        <div class="f0-spectrogram-cont"></div>
+        <button class="spectro-btn" type="button">Get spectrogram</button>
+        <div class="spectrogram-cont"></div>
+        <canvas class="spectrogram"></canvas>
+        <!-- <canvas class="spectrogram" width="100%" height="100%" style="background-color: burlywood;"></canvas> -->
+
+
+    </div>
+    <script src="js/index.js"></script>
+</body>
+</html>

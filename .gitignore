@@ -278,7 +278,7 @@ pyrightconfig.json
 .history
 .ionide
 
-audio/
+audio/*
 uploads/*
 imgs/*
 
