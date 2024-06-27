@@ -278,4 +278,11 @@ pyrightconfig.json
 .history
 .ionide
 
+audio/
+uploads/*
+imgs/*
+
+try_app.py
+librosa_experiment.py
+
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,flask
