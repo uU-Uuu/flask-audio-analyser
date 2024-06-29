@@ -16,6 +16,34 @@
 
         </div>
         <label class="f0-label"></label>
+        <div class="f0-check">
+            <div>
+                <input type="checkbox" class="select-all"" value="all" />
+                <label>all</label>
+            </div>
+            <div>
+                <input type="checkbox" class="f0-check-option" value="mean" />
+                <label>mean</label>
+            </div>
+            <div>
+                <input type="checkbox" class="f0-check-option" value="median" />
+                <label>median</label>
+            </div>
+            <div>
+                <input type="checkbox" class="f0-check-option" value="mode" />
+                <label>mode</label>
+            </div>
+            <div>
+                <input type="checkbox" class="f0-check-option" value="max" />
+                <label>max</label>
+            </div>
+            <div>
+                <input type="checkbox" class="f0-check-option" value="min" />
+                <label>min</label>
+            </div>
+
+
+        </div>
         <button class="f0-btn" type="button">Get F0</button>
         <button class="f0-spectro-btn" type="button">Get f0 spectrogram</button>
         <div class="f0-spectrogram-cont"></div>
@@ -26,6 +54,7 @@
 
 
     </div>
+    <script src="https://unpkg.com/tone"></script>
     <script src="js/index.js"></script>
 </body>
 </html>
