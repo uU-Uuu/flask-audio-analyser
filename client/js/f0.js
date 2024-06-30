@@ -4,7 +4,7 @@ import { getFileIdFromStorage, freqToNote, BASE_URL } from './common.js';
 const f0Btn = document.querySelector('.f0__f0-btn');
 const spectrBtn = document.querySelector('.f0__spectro-btn');
 const spectrF0Btn = document.querySelector('.f0__f0-spectro-btn');
-
+const f0Lbl = document.querySelector('.f0__label');
 
 
 function calculateF0(data) {
@@ -20,8 +20,9 @@ function calculateF0(data) {
 
     } else {
 
-        if (!f0Checkboxes.includes('mean')) {
-            f0Values = {};
+        if (f0Checkboxes.includes('mean')) {
+            const mean = f0Arr.reduce((sum, curr) => sum + curr, 0 ) / f0Arr.length;
+            f0Values['mean'] = [mean, freqToNote(mean)];
         };
 
         if (f0Checkboxes.includes('median')) {
@@ -78,14 +79,15 @@ function calculateF0(data) {
 
 function retrieveSpectrogram(url, div) {
 
-    const storedID = getFileIdFromStorage();
+    const storedID = getFileIdFromStorage()[0];
+    const uploadedTime = getFileIdFromStorage()[1]
 
     if (!storedID) {
         document.querySelector('.f0-label').innerHTML = 'No file selected.';
         return;
     }
 
-    fetch(`${BASE_URL}/${url}?id=${storedID}`)
+    fetch(`${BASE_URL}/${url}?id=${storedID}.${uploadedTime}`)
 
     .then(response => {
         if(!response.ok) {
@@ -108,17 +110,27 @@ function retrieveSpectrogram(url, div) {
 }
 
 
+const allCheck = document.querySelector('.f0__check-all');
+allCheck.addEventListener('click', () => {
+    const f0Checkbx = document.querySelectorAll('.f0__check-option'); 
+    f0Checkbx.forEach( bx => {
+        bx.disabled = true;
+        bx.checked = true;
+    })
+})
+
 
 f0Btn.addEventListener('click', async () => {
 
-    const storedID = getFileIdFromStorage()
+    const storedID = getFileIdFromStorage()[0];
+    const uploadedTime = getFileIdFromStorage()[1]
 
     if (!storedID) {
         document.querySelector('.f0__label').innerHTML = 'No file selected.';
         return;
     }
     
-fetch(`${BASE_URL}/f0?id=${storedID}`)
+fetch(`${BASE_URL}/f0?id=${storedID}.${uploadedTime}`)
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -126,11 +138,16 @@ fetch(`${BASE_URL}/f0?id=${storedID}`)
         return response.json();
     })
     .then(data => {
-        const a = calculateF0(data);
-        console.log(a)
+        if ('message' in data) {
+            f0Lbl.innerHTML = 'Expired. Please upload the file.';
+        } else {
+            const a = calculateF0(data);
+            console.log(a);
+        }
     })
 
     .catch(err => {
+        f0Lbl.innerHTML = 'Please upload a file.'
         console.error('Fetch error: ', err)
     })
 

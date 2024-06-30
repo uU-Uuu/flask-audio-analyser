@@ -1,11 +1,11 @@
+import os
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-import os.path
 import uuid
-from datetime import datetime, timezone
-from tempfile import NamedTemporaryFile
+from datetime import datetime, timedelta
 from matplotlib import pyplot as plt
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from audio_processing import to_wav, extract_f0, basic_spectrogram, f0_spectrogram
 
@@ -13,8 +13,6 @@ from audio_processing import to_wav, extract_f0, basic_spectrogram, f0_spectrogr
 ALLOWED_EXTENSIONS = {'mp3', 'wav'}
 UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'uploads'))
 IMG_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'imgs'))
-
-
 
 class APIConfig:
     UPLOAD_FOLDER = UPLOAD_FOLDER
@@ -27,7 +25,8 @@ CORS(app)
 app.config.from_object(APIConfig)
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(del_uploads, 'interval', minutes=30)
 plt.switch_backend('Agg')
 
 
@@ -44,7 +43,17 @@ def allowed_file(filename):
 def get_file_by_id(func):
     def inner(*args, **kwargs):
         if request.method == 'GET':
-            file_id = request.args.get('id') 
+            file_id, uploaded_time = request.args.get('id').split('.')
+            curr_time_str = datetime.now().strftime('%H:%M')
+            curr_time = datetime.strptime(curr_time_str, '%H:%M')
+            upl_time = datetime.strptime(uploaded_time, '%H:%M')
+
+            print(abs(curr_time - upl_time))
+
+
+            if abs(curr_time - upl_time) > timedelta(minutes=1):
+                return jsonify({'message': 'Session has expired. Please upload again'})
+            
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{file_id}.wav')
 
             if os.path.exists(file_path):
@@ -82,7 +91,7 @@ def upload_audiofile():
             return jsonify({'message': 'File type not allowed'}), 400
         
         return jsonify({'id': curr_uuid, 
-                        'created': datetime.now(timezone.utc), 
+                        'uploaded': datetime.now().strftime('%I:%M'), 
                         'status': 'success'})
 
 

@@ -30,6 +30,7 @@ uploadBtn.addEventListener('click', async () => {
 
     .then(uploadResult => {
         sessionStorage.setItem('uploadID', uploadResult.id);
+        sessionStorage.setItem('uploadTime', uploadResult.uploaded)
     })
 
     .catch(err => {
