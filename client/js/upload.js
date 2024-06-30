@@ -25,12 +25,12 @@ uploadBtn.addEventListener('click', async () => {
         if(!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        document.querySelector('.f0__label').innerHTML = '';
         return response.json()
     })
 
     .then(uploadResult => {
         sessionStorage.setItem('uploadID', uploadResult.id);
-        sessionStorage.setItem('uploadTime', uploadResult.uploaded)
     })
 
     .catch(err => {

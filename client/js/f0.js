@@ -79,15 +79,13 @@ function calculateF0(data) {
 
 function retrieveSpectrogram(url, div) {
 
-    const storedID = getFileIdFromStorage()[0];
-    const uploadedTime = getFileIdFromStorage()[1]
-
+    const storedID = getFileIdFromStorage();
     if (!storedID) {
         document.querySelector('.f0-label').innerHTML = 'No file selected.';
         return;
     }
 
-    fetch(`${BASE_URL}/${url}?id=${storedID}.${uploadedTime}`)
+    fetch(`${BASE_URL}/${url}?id=${storedID}`)
 
     .then(response => {
         if(!response.ok) {
@@ -121,36 +119,33 @@ allCheck.addEventListener('click', () => {
 
 
 f0Btn.addEventListener('click', async () => {
-
-    const storedID = getFileIdFromStorage()[0];
-    const uploadedTime = getFileIdFromStorage()[1]
+    const storedID = getFileIdFromStorage();
 
     if (!storedID) {
         document.querySelector('.f0__label').innerHTML = 'No file selected.';
         return;
     }
     
-fetch(`${BASE_URL}/f0?id=${storedID}.${uploadedTime}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        if ('message' in data) {
-            f0Lbl.innerHTML = 'Expired. Please upload the file.';
-        } else {
-            const a = calculateF0(data);
-            console.log(a);
-        }
-    })
+    fetch(`${BASE_URL}/f0?id=${storedID}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if ('message' in data) {
+                f0Lbl.innerHTML = 'Session has expired. Please upload the file again.';
+            } else {
+                const a = calculateF0(data);
+                console.log(a);
+            }
+        })
 
-    .catch(err => {
-        f0Lbl.innerHTML = 'Please upload a file.'
-        console.error('Fetch error: ', err)
-    })
-
+        .catch(err => {
+            f0Lbl.innerHTML = 'Please upload a file.'
+            console.error('Fetch error: ', err)
+        })
 })
 
 

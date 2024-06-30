@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime, timedelta
 from matplotlib import pyplot as plt
 from apscheduler.schedulers.background import BackgroundScheduler
-
+import re
 from audio_processing import to_wav, extract_f0, basic_spectrogram, f0_spectrogram
 
 
@@ -40,18 +40,38 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower())
 
 
+def time_diff(time_cust_str, time_ref=datetime.now(), format='%H%M'):
+    time_curr_str = time_ref.strftime(format)
+    time_curr = datetime.strptime(time_curr_str, format)
+    time_cust = datetime.strptime(time_cust_str, format)
+    return abs(time_curr - time_cust)
+
+
+def uploads_cleaner(dir):
+    try:
+        files = os.listdir(dir)
+        files_time = map(lambda filename: (filename, re.search(r'@(.{4})', filename).group(1)), files)
+        for file, ft in files_time:
+            if time_diff(ft) > timedelta(minutes=1):
+                file_path = os.path.join(dir, file)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                    print(file_path)
+        print('Deleted successfully')
+    except OSError:
+        print('Error occurred while deleting files')
+
+
 def get_file_by_id(func):
     def inner(*args, **kwargs):
         if request.method == 'GET':
-            file_id, uploaded_time = request.args.get('id').split('.')
-            curr_time_str = datetime.now().strftime('%H:%M')
-            curr_time = datetime.strptime(curr_time_str, '%H:%M')
-            upl_time = datetime.strptime(uploaded_time, '%H:%M')
+            file_id = request.args.get('id')
+            uploaded_time = file_id.split('@')[1]
 
-            print(abs(curr_time - upl_time))
+            uploads_cleaner(UPLOAD_FOLDER)
+            uploads_cleaner(IMG_FOLDER)
 
-
-            if abs(curr_time - upl_time) > timedelta(minutes=1):
+            if time_diff(uploaded_time) > timedelta(minutes=1):
                 return jsonify({'message': 'Session has expired. Please upload again'})
             
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{file_id}.wav')
@@ -77,7 +97,7 @@ def upload_audiofile():
         allowed, extension = allowed_file(filename)
 
         if allowed:
-            curr_uuid = str(uuid.uuid4())
+            curr_uuid = str(uuid.uuid4()) + '@' + datetime.now().strftime('%H%M')
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{curr_uuid}.{extension}')
             file.save(file_path)
 
@@ -91,7 +111,6 @@ def upload_audiofile():
             return jsonify({'message': 'File type not allowed'}), 400
         
         return jsonify({'id': curr_uuid, 
-                        'uploaded': datetime.now().strftime('%I:%M'), 
                         'status': 'success'})
 
 
