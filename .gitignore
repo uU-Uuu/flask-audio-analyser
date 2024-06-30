@@ -285,6 +285,8 @@ server/imgs/*
 try_app.py
 librosa_experiment.py
 
+client/js/env.js
+
 node_modules
 node_modules/*
 

@@ -1,4 +1,5 @@
-import { BASE_URL } from './common.js';
+import { BASE_URL } from './env.js';
+
 
 const fileInput = document.querySelector('.upload__input-file');
 const uploadBtn = document.querySelector('.upload__upload-btn');
