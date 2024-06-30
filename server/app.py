@@ -3,16 +3,13 @@ from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime
 from matplotlib import pyplot as plt
-from apscheduler.schedulers.background import BackgroundScheduler
-import re
+import atexit
+
 from audio_processing import to_wav, extract_f0, basic_spectrogram, f0_spectrogram
-
-
-ALLOWED_EXTENSIONS = {'mp3', 'wav'}
-UPLOAD_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'uploads'))
-IMG_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), 'imgs'))
+from assist import allowed_file, uploads_cleaner, get_file_by_id
+from config import UPLOAD_FOLDER, IMG_FOLDER, PORT
 
 class APIConfig:
     UPLOAD_FOLDER = UPLOAD_FOLDER
@@ -24,66 +21,12 @@ CORS(app)
 
 app.config.from_object(APIConfig)
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['IMG_FOLDER'], exist_ok=True)
 
-# scheduler = BackgroundScheduler()
-# scheduler.add_job(del_uploads, 'interval', minutes=30)
 plt.switch_backend('Agg')
 
+atexit.register(uploads_cleaner)
 
-
-def allowed_file(filename):
-    """
-    returns (Bool, file_extension) as a tuple
-    """
-    return ('.' in filename and \
-        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS,
-        filename.rsplit('.', 1)[1].lower())
-
-
-def time_diff(time_cust_str, time_ref=datetime.now(), format='%H%M'):
-    time_curr_str = time_ref.strftime(format)
-    time_curr = datetime.strptime(time_curr_str, format)
-    time_cust = datetime.strptime(time_cust_str, format)
-    return abs(time_curr - time_cust)
-
-
-def uploads_cleaner(dir):
-    try:
-        files = os.listdir(dir)
-        files_time = map(lambda filename: (filename, re.search(r'@(.{4})', filename).group(1)), files)
-        for file, ft in files_time:
-            if time_diff(ft) > timedelta(minutes=1):
-                file_path = os.path.join(dir, file)
-                if os.path.isfile(file_path):
-                    os.remove(file_path)
-                    print(file_path)
-        print('Deleted successfully')
-    except OSError:
-        print('Error occurred while deleting files')
-
-
-def get_file_by_id(func):
-    def inner(*args, **kwargs):
-        if request.method == 'GET':
-            file_id = request.args.get('id')
-            uploaded_time = file_id.split('@')[1]
-
-            uploads_cleaner(UPLOAD_FOLDER)
-            uploads_cleaner(IMG_FOLDER)
-
-            if time_diff(uploaded_time) > timedelta(minutes=1):
-                return jsonify({'message': 'Session has expired. Please upload again'})
-            
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], f'{file_id}.wav')
-
-            if os.path.exists(file_path):
-                return func(file_path, *args, **kwargs)
-            else:
-                return jsonify({'message': f'File not found {file_path}'}), 404
-    inner.__name__ = func.__name__
-    return inner
-
-    
 
 @app.route('/upload', methods=['POST'])
 def upload_audiofile():
@@ -118,9 +61,7 @@ def upload_audiofile():
 @get_file_by_id
 def get_f0(filepath):
     try:
-        # f0, voiced_flag, voiced_prob, times = extract_f0(file_path)
         return jsonify({'f0': extract_f0(filepath)})
-        # return jsonify({'f0': f0, 'voiced_flag': voiced_flag, 'voiced_prob': voiced_prob, 'times': times}), 200
     except Exception as e:
         return jsonify({'message': 'Failed to build a spectrogram: {e}'}), 422
 
@@ -141,8 +82,7 @@ def get_spectrogram(filepath):
         return send_file(basic_spectrogram(filepath), mimetype='image/jpeg')
     except Exception as e:
         return jsonify({'message': 'Failed to retrieve data for spectrogram: {e}'}), 422
-        
-
+    
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=PORT, debug=True)
