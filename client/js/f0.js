@@ -6,6 +6,7 @@ const spectrBtn = document.querySelector(".f0__spectro-btn");
 const spectrF0Btn = document.querySelector(".f0__f0-spectro-btn");
 const f0Lbl = document.querySelector(".f0__label");
 const allCheck = document.querySelector(".f0__check-all");
+const f0PlotBtn = document.querySelector(".f0__f0-plot-btn");
 
 function calculateF0(data) {
   const f0Arr = data["f0"].filter((val) => val !== 0);
@@ -158,8 +159,6 @@ f0Btn.addEventListener("click", async () => {
           for (const [key, value] of Object.entries(f0Obj)) {
             let btnDomString = "";
 
-            console.log(key, value);
-
             if (value[1] !== "-") {
               btnDomString = `
                 <button class="f0__tablecont-table-playbtn btnExists" value=${value[0]}>
@@ -180,6 +179,40 @@ f0Btn.addEventListener("click", async () => {
             tableRowsDomString;
           document.querySelector(".f0__tablecont-table").style.visibility =
             "visible";
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    })
+
+    .catch((err) => {
+      f0Lbl.innerHTML = "Please upload a file.";
+      console.error("Fetch error: ", err);
+    });
+});
+
+f0PlotBtn.addEventListener("click", async () => {
+  const storedID = getFileIdFromStorage();
+
+  if (!storedID) {
+    document.querySelector(".f0__label").innerHTML = "No file selected.";
+    return;
+  }
+
+  fetch(`${BASE_URL}/f0/plot?id=${storedID}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if ("message" in data) {
+        f0Lbl.innerHTML = "Session has expired. Please upload the file again.";
+      } else {
+        try {
+          const f0 = data.f0;
+          const times = data.times;
         } catch (err) {
           console.log(err);
         }

@@ -41,15 +41,18 @@ def basic_spectrogram(audiofile):
     return save_img(file=audiofile, fig=fig)
 
 
-def extract_f0(audiofile, fmin=85, fmax=300):
+def extract_f0(audiofile, fmin=85, fmax=300, get_times=False):
     y, sr = librosa.load(audiofile)
     f0, voiced_flag, voiced_prob = librosa.pyin(y=y,
                                                  sr=sr,
                                                  fmin=fmin,
                                                  fmax=fmax)
-    # times = librosa.times_like(f0, sr=sr)
+    times = librosa.times_like(f0, sr=sr)
     # voiced_flag_b = list(map(bool, voiced_flag))
     # return  tuple(map(lambda li: np.nan_to_num(li).tolist(), (f0, voiced_flag, voiced_flag_b, times)))
+    if get_times:
+        return np.nan_to_num(f0).tolist(), np.nan_to_num(times).tolist()
+
     return np.nan_to_num(f0).tolist()
 
 

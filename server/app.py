@@ -66,6 +66,16 @@ def get_f0(filepath):
         return jsonify({'message': 'Failed to build a spectrogram: {e}'}), 422
 
 
+@app.route('/f0/plot', methods=['GET'])
+@get_file_by_id
+def get_f0_plot_data(filepath):
+    try:
+        f0, times = extract_f0(filepath, get_times=True)
+        return jsonify({'f0': f0, 'times': times})
+    except Exception as e:
+        return jsonify({'message': 'Failed to retrive data for f0 plot: {e}'}), 422
+
+
 @app.route('/f0/spectrogram', methods=['GET'])
 @get_file_by_id
 def get_f0_spectrogram(filepath):
