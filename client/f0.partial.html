@@ -1,17 +1,77 @@
 <section class="f0 container">
-    <h2 class="f0__title">F0</h2>
-    <label class="f0__label"></label>
-    <div class="f0__check">
-        <label class="f0__check-label"><input type="checkbox" class="f0__check-all" value="all" />all</label>
-        <label class="f0__check-label"><input type="checkbox" class="f0__check-option" value="mean" checked />mean</label>
-        <label class="f0__check-label"><input type="checkbox" class="f0__check-option" value="median" />median</label>
-        <label class="f0__check-label"><input type="checkbox" class="f0__check-option" value="mode" />mode</label>
-        <label class="f0__check-label"><input type="checkbox" class="f0__check-option" value="max" />max</label>
-        <label class="f0__check-label"><input type="checkbox" class="f0__check-option" value="min" />min</label>
-    </div>
-    <button class="f0__f0-btn" type="button">Get F0</button>
-    <button class="f0__f0-spectro-btn" type="button">Get f0 spectrogram</button>
-    <div class="f0__f0-spectrogram-cont"></div>
-    <button class="f0__spectro-btn" type="button">Get spectrogram</button>
-    <div class="f0__spectrogram-cont"></div>
+  <h2 class="f0__title">F0</h2>
+  <label class="f0__label"></label>
+  <div class="f0__check">
+    <label class="f0__check-label"
+      ><input
+        type="checkbox"
+        class="f0__check-all"
+        value="all"
+        checked
+      />all</label
+    >
+    <label class="f0__check-label"
+      ><input
+        type="checkbox"
+        class="f0__check-option"
+        value="mean"
+        checked
+        disabled
+      />mean</label
+    >
+    <label class="f0__check-label"
+      ><input
+        type="checkbox"
+        class="f0__check-option"
+        value="median"
+        checked
+        disabled
+      />median</label
+    >
+    <label class="f0__check-label"
+      ><input
+        type="checkbox"
+        class="f0__check-option"
+        value="mode"
+        checked
+        disabled
+      />mode</label
+    >
+    <label class="f0__check-label"
+      ><input
+        type="checkbox"
+        class="f0__check-option"
+        value="max"
+        checked
+        disabled
+      />max</label
+    >
+    <label class="f0__check-label"
+      ><input
+        type="checkbox"
+        class="f0__check-option"
+        value="min"
+        checked
+        disabled
+      />min</label
+    >
+  </div>
+  <button class="f0__f0-btn" type="button">Get F0</button>
+  <div class="f0__tablecont">
+    <table class="f0__tablecont-table">
+      <thead>
+        <tr>
+          <th scope="col">Measure</th>
+          <th scope="col">Freq.</th>
+          <th scope="col">Note</th>
+          <th scope="col">Play</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <button class="f0__f0-spectro-btn" type="button">Get f0 spectrogram</button>
+  <div class="f0__f0-spectrogram-cont"></div>
+  <button class="f0__spectro-btn" type="button">Get spectrogram</button>
+  <div class="f0__spectrogram-cont"></div>
 </section>
