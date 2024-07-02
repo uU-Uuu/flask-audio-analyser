@@ -1,0 +1,14 @@
+.bg {
+    z-index: -1;
+    margin: auto;
+}
+
+.bg__img {
+    padding: 2vh 2vh 0 2vh;
+    border-radius: 6vh;
+    max-width: 100%;
+    margin: auto;
+}
+
+.bg__rect {
+}

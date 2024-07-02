@@ -1,3 +1,35 @@
+.upload {
+    padding: 3vw 5vw;
+    margin-top: -57%;
+}
+
+
+h1 {
+    font-size: 1.6em;
+    text-align: center;
+    font-family: var(--title-font);
+    padding-bottom: 4vh;
+}
+
+.upload__title {
+    font-family: var(--title-font);
+    font-size: 1.3em;
+}
+
+
+.upload__input-file {
+    color: transparent;
+}
+
+.upload__input-file::file-selector-button {
+    background: #eac5b0    ;
+}
+
+
+
 .upload__play {
     visibility: hidden;
+}
+
+.upload {
 }
