@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^16.4.5",
+    "plotly.js-dist": "^2.33.0",
     "tone": "^15.0.4"
   }
 }

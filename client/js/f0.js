@@ -1,4 +1,12 @@
-import { getFileIdFromStorage, freqToNote, playFreq } from "./common.js";
+import {
+  getFileIdFromStorage,
+  freqToNote,
+  playFreq,
+  zipArr,
+  zipToObj,
+  f0LineCol,
+  pltBckgCol,
+} from "./common.js";
 import { BASE_URL } from "./env.js";
 
 const f0Btn = document.querySelector(".f0__f0-btn");
@@ -129,6 +137,19 @@ function checkAll() {
   return Array.from(f0Checkbx);
 }
 
+function statTrace(name, values, times) {
+  return {
+    x: times,
+    y: times.map(() => values[0]),
+    mode: "markers",
+    name: name,
+    text: `${Math.round(values[0], 0)}Hz, ${values[1]}`,
+    textposition: "top center",
+    hoverinfo: "text",
+    type: "scatter",
+  };
+}
+
 allCheck.addEventListener("click", () => {
   checkAll();
 });
@@ -211,8 +232,50 @@ f0PlotBtn.addEventListener("click", async () => {
         f0Lbl.innerHTML = "Session has expired. Please upload the file again.";
       } else {
         try {
-          const f0 = data.f0;
           const times = data.times;
+          const f0 = data.f0;
+          const f0Round = f0.map((val) => Math.round(val, 0));
+          const maxTime = times[data.times.length - 1];
+          const statF0 = calculateF0(data);
+          const freqTime = zipToObj(zipArr(f0Round, times));
+
+          const traces = [];
+          Object.entries(statF0).forEach(([key, values]) => {
+            if (freqTime.hasOwnProperty(values[0])) {
+              traces.push(statTrace(key, values, freqTime[values[0]]));
+            }
+          });
+
+          const f0Trace = {
+            x: times,
+            y: f0.map((val) => (val === 0 ? null : val)),
+            mode: "lines",
+            name: "f0",
+            line: {
+              color: f0LineCol,
+            },
+            hoverinfo: "text",
+            text: zipArr(f0, times).map(
+              (val) => `${Math.round(val[1], 2)}s ${Math.round(val[0], 0)}Hz`
+            ),
+          };
+          traces.push(f0Trace);
+
+          const layout = {
+            plot_bgcolor: pltBckgCol,
+
+            xaxis: {
+              title: "Time",
+              range: [0, maxTime],
+              tickmode: "linear",
+              tick0: 0,
+              dtick: 0.6,
+            },
+            yaxis: {
+              title: "F0 freq.",
+            },
+          };
+          Plotly.newPlot("f0-plot", traces, layout);
         } catch (err) {
           console.log(err);
         }
