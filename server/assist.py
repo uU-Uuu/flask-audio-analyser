@@ -3,7 +3,7 @@ from flask import jsonify, request
 from datetime import datetime, timedelta
 import re
 
-from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, IMG_FOLDER
+from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, IMG_FOLDER, SESSION_TIME
 
 
 def allowed_file(filename):
@@ -29,7 +29,7 @@ def uploads_cleaner(dir):
             files_time = map(lambda filename: (filename, re.search(r'@(.{4})', filename).group(1)), files)
             
             for file, ft in files_time:
-                if time_diff(ft) > timedelta(minutes=30):
+                if time_diff(ft) > timedelta(minutes=SESSION_TIME):
                     file_path = os.path.join(dir, file)
                     if os.path.isfile(file_path):
                         os.remove(file_path)
@@ -46,7 +46,8 @@ def get_file_by_id(func):
             uploads_cleaner(UPLOAD_FOLDER)
             uploads_cleaner(IMG_FOLDER)
 
-            if time_diff(uploaded_time) > timedelta(minutes=30):
+            if time_diff(uploaded_time) > timedelta(minutes=SESSION_TIME):
+                print('-SESSION--------')
                 return jsonify({'message': 'Session has expired. Please upload again'})
             
             file_path = os.path.join(UPLOAD_FOLDER, f'{file_id}.wav')

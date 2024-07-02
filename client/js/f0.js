@@ -1,5 +1,6 @@
 import {
   getFileIdFromStorage,
+  endSession,
   freqToNote,
   playFreq,
   zipArr,
@@ -30,7 +31,7 @@ function calculateF0(data) {
   }
   if (f0Checkboxes.includes("mean")) {
     const mean = Math.round(
-      f0Arr.reduce((sum, curr) => sum + curr, 0) / f0Arr.length,
+      f0Arr.reduce((sum, curr) => sum + curr) / f0Arr.length,
       0
     );
     f0Values["mean"] = [mean, freqToNote(mean)];
@@ -43,7 +44,7 @@ function calculateF0(data) {
       sorted.length % 2 === 0
         ? (sorted[mid - 1] + sorted[mid + 1]) / 2
         : sorted[mid];
-    f0Values["median"] = [Math.round(median, 0), freqToNote(median)];
+    f0Values["median"] = [Math.round(median), freqToNote(median)];
   }
 
   if (f0Checkboxes.includes("mode")) {
@@ -71,21 +72,19 @@ function calculateF0(data) {
       mode = currEl;
     }
     const modeFin = maxStreak !== 1 ? mode : "-";
-    f0Values["mode"] = [Math.round(modeFin, 0), freqToNote(modeFin)];
+    f0Values["mode"] = [Math.round(modeFin), freqToNote(modeFin)];
   }
 
   if (f0Checkboxes.includes("max")) {
     const max = Math.round(
-      f0Arr.reduce((max, curr) => (curr > max ? curr : max)),
-      0
+      f0Arr.reduce((max, curr) => (curr > max ? curr : max))
     );
     f0Values["max"] = [max, freqToNote(max)];
   }
 
   if (f0Checkboxes.includes("min")) {
     const min = Math.round(
-      f0Arr.reduce((min, curr) => (curr < min ? curr : min)),
-      0
+      f0Arr.reduce((min, curr) => (curr < min ? curr : min))
     );
     f0Values["min"] = [min, freqToNote(min)];
   }
@@ -96,7 +95,7 @@ function calculateF0(data) {
 function retrieveSpectrogram(url, div) {
   const storedID = getFileIdFromStorage();
   if (!storedID) {
-    document.querySelector(".f0-label").innerHTML = "No file selected.";
+    document.querySelector(".f0__label").innerHTML = "No file selected.";
     return;
   }
 
@@ -105,18 +104,32 @@ function retrieveSpectrogram(url, div) {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.blob();
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return response.json().then((data) => {
+          console.log(data);
+          endSession(f0Lbl);
+          return null;
+        });
+      } else {
+        return response.blob();
+      }
     })
 
     .then((blob) => {
-      const url = URL.createObjectURL(blob);
-      const spectroCont = document.querySelector(div);
-      spectroCont.innerHTML = `
-        <img src="${url}" alt="Spectrogram">
-        `;
+      if (blob instanceof Blob) {
+        const url = URL.createObjectURL(blob);
+        const spectroCont = document.querySelector(div);
+        spectroCont.innerHTML = `
+            <img src="${url}" alt="Spectrogram">
+            `;
+      } else {
+        return;
+      }
     })
 
     .catch((err) => {
+      f0Lbl.innerHTML = "Something went wrong.";
       console.error("Fetch error: ", err);
     });
 }
@@ -171,7 +184,7 @@ f0Btn.addEventListener("click", async () => {
     })
     .then((data) => {
       if ("message" in data) {
-        f0Lbl.innerHTML = "Session has expired. Please upload the file again.";
+        endSession(f0Lbl);
       } else {
         try {
           const f0Obj = calculateF0(data);
@@ -229,12 +242,12 @@ f0PlotBtn.addEventListener("click", async () => {
     })
     .then((data) => {
       if ("message" in data) {
-        f0Lbl.innerHTML = "Session has expired. Please upload the file again.";
+        endSession(f0Lbl);
       } else {
         try {
           const times = data.times;
           const f0 = data.f0;
-          const f0Round = f0.map((val) => Math.round(val, 0));
+          const f0Round = f0.map((val) => Math.round(val));
           const maxTime = times[data.times.length - 1];
           const statF0 = calculateF0(data);
           const freqTime = zipToObj(zipArr(f0Round, times));
@@ -252,17 +265,17 @@ f0PlotBtn.addEventListener("click", async () => {
             mode: "lines",
             name: "f0",
             line: {
-              color: f0LineCol,
+              // color: f0LineCol,
             },
             hoverinfo: "text",
             text: zipArr(f0, times).map(
-              (val) => `${Math.round(val[1], 2)}s ${Math.round(val[0], 0)}Hz`
+              (val) => `${val[1].toFixed(2)}s ${Math.round(val[0])}Hz`
             ),
           };
           traces.push(f0Trace);
 
           const layout = {
-            plot_bgcolor: pltBckgCol,
+            // plot_bgcolor: pltBckgCol,
 
             xaxis: {
               title: "Time",

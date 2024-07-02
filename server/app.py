@@ -25,7 +25,9 @@ os.makedirs(app.config['IMG_FOLDER'], exist_ok=True)
 
 plt.switch_backend('Agg')
 
-atexit.register(uploads_cleaner)
+atexit.register(lambda: uploads_cleaner(UPLOAD_FOLDER))
+atexit.register(lambda: uploads_cleaner(IMG_FOLDER))
+
 
 
 @app.route('/upload', methods=['POST'])
@@ -57,13 +59,22 @@ def upload_audiofile():
                         'status': 'success'})
 
 
+@app.route('/play', methods=['GET'])
+@get_file_by_id
+def get_file(filepath):
+    try:
+        return send_file(filepath, mimetype='audio/wav')
+    except:
+        return jsonify({'message': 'File not found: {e}'}), 404
+
+
 @app.route('/f0', methods=['GET'])
 @get_file_by_id
 def get_f0(filepath):
     try:
         return jsonify({'f0': extract_f0(filepath)})
     except Exception as e:
-        return jsonify({'message': 'Failed to build a spectrogram: {e}'}), 422
+        return jsonify({'message': 'Failed to retrive data for f0: {e}'}), 422
 
 
 @app.route('/f0/plot', methods=['GET'])
@@ -82,7 +93,7 @@ def get_f0_spectrogram(filepath):
     try:
         return send_file(f0_spectrogram(filepath), mimetype='image/jpeg')
     except Exception as e:
-        return jsonify({'message': 'Failed to retrieve data for spectrogram: {e}'}), 422
+        return jsonify({'message': 'Failed to retrieve data for F0 spectrogram: {e}'}), 422
         
 
 @app.route('/spectrogram', methods=['GET'])

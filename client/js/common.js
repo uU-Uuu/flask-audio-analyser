@@ -2,6 +2,11 @@ export function getFileIdFromStorage() {
   return sessionStorage.getItem("uploadID");
 }
 
+export function endSession(lbl) {
+  lbl.innerHTML = "Session has expired. Please upload the file again.";
+  sessionStorage.clear();
+}
+
 export function freqToNote(freq) {
   if (freq === 0 || freq === "-") return "-";
   const note = Tone.Frequency(freq, "hz").toNote();
