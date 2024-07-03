@@ -67,6 +67,7 @@ playBtn.addEventListener("click", () => {
     .then((blob) => {
       if (blob instanceof Blob) {
         const url = URL.createObjectURL(blob);
+        audioCont.style.visibility = "visible";
         audioCont.innerHTML += `
             <audio class="upload__play-audio" controls src="${url}"></audio>
             `;
@@ -83,10 +84,12 @@ playBtn.addEventListener("click", () => {
 function isUploaded() {
   const stored = getFileIdFromStorage();
   if (stored) {
-    audioCont.style.visibility = "visible";
+    playBtn.style.visibility = "visible";
     uploadLbl.innerHTML = "";
+    document.querySelector(".upload__img").style.visibility = "visible";
   } else {
-    audioCont.style.visibility = "hidden";
+    playBtn.style.visibility = "hidden";
+    document.querySelector(".upload__img").style.visibility = "hidden";
   }
 }
 

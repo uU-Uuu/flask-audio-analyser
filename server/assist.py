@@ -47,7 +47,7 @@ def get_file_by_id(func):
             uploads_cleaner(IMG_FOLDER)
 
             if time_diff(uploaded_time) > timedelta(minutes=SESSION_TIME):
-                print('-SESSION--------')
+                print('-SESSION--------', time_diff(uploaded_time), timedelta(minutes=SESSION_TIME))
                 return jsonify({'message': 'Session has expired. Please upload again'})
             
             file_path = os.path.join(UPLOAD_FOLDER, f'{file_id}.wav')
@@ -58,3 +58,5 @@ def get_file_by_id(func):
                 return jsonify({'message': f'File not found {file_path}'}), 404
     inner.__name__ = func.__name__
     return inner
+
+

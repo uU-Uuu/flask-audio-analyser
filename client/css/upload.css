@@ -12,24 +12,94 @@ h1 {
 }
 
 .upload__title {
+    margin: 3vh 0 2vh 4vh; 
     font-family: var(--title-font);
     font-size: 1.3em;
 }
 
+.upload__label {
+    margin: 3vh 3vh;
+}
+
+
+.upload__out {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.upload__cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5vw;
+}
+
 
 .upload__input-file {
+    position: absolute;
     color: transparent;
 }
 
-.upload__input-file::file-selector-button {
-    background: #eac5b0    ;
+.upload__input-file::file-selector-button,  
+.upload__upload-btn,
+.upload__play-btn {
+    margin: 3vh 3vh;
+    padding: 0 2vw;
+    background: var(--btn-bg-color);
+    box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
+    border-radius: 2vh;
+    border-width: 0;
+    height: 5vh;
+    text-align: center;
+    font-weight: 600;
 }
 
+
+.upload__input-file::file-selector-button:hover,
+.upload__upload-btn:hover,
+.upload__play-btn:hover {
+    border-color: var(--btn-border-color);
+    border-width: 1px;
+    color: var(--btn-text-color);
+}
+
+
+
+.upload__input-file::file-selector-button:active,
+.upload__upload-btn:active,
+.upload__play-btn:active {
+    border-width: 2px;
+}
+
+
+
+.upload__img {
+    position: relative;
+    width: 25px;
+    height: 30px;
+    display: inline-block;
+    margin-left: 30%;
+}
+
+
+.upload__upload-btn {
+ margin-left: 15%;  
+ padding: 0 3vw; 
+}
 
 
 .upload__play {
     visibility: hidden;
+    float: inline-end;
+
 }
 
-.upload {
+.upload__play-btn {
+    padding: 0 2vw;
+    visibility: hidden;
+}
+
+.upload__play-audio {
+    margin: 1vh 3vw;
 }

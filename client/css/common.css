@@ -10,17 +10,18 @@
 :root {
     scroll-behavior: smooth;
 
-    --main-bg-color: #000000;
     --title-font: "Montserrat Subrayada", sans-serif;
-    /* #93c2d0 */
+    --btn-bg-color: #ade0e357;
+    --btn-shadow-color1: rgba(50, 50, 93, 0.25);
+    --btn-shadow-color2:  rgba(0, 0, 0, 0.3);
+    --btn-border-color: #151e21;
+    --btn-text-color: #151e21;
+    --checkbx-accent-color: #7294a9a1;
 
 }
 
 body {
-    /* background-color: var(--main-bg-color); */
-    /* font-family: "Montserrat Subrayada", sans-serif;
-    font-weight: 700;
-    font-style: normal; */
+
 }
 
 img {
