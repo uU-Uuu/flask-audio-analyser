@@ -5,8 +5,8 @@ import {
   playFreq,
   zipArr,
   zipToObj,
+  plotColorsObj,
   f0LineCol,
-  pltBckgCol,
 } from "./common.js";
 import { BASE_URL } from "./env.js";
 
@@ -195,13 +195,13 @@ f0Btn.addEventListener("click", async () => {
 
             if (value[1] !== "-") {
               btnDomString = `
-                <button class="f0__tablecont-table-playbtn btnExists" value=${value[0]}>
+                <button class="f0__tablecont-table-playbtn btnExists ${key}" value=${value[0]}>
                     <img class="f0__tablecont-table-playbtn-icon" src="img/play-icon.svg" />
                 </button>
               `;
             }
             tableRowsDomString += `
-                        <tr>
+                        <tr class=${key}>
                             <th scope="col">${key}</th>
                             <td>${value[0]}</td>
                             <td>${value[1]}</td>
@@ -253,11 +253,7 @@ f0PlotBtn.addEventListener("click", async () => {
           const freqTime = zipToObj(zipArr(f0Round, times));
 
           const traces = [];
-          Object.entries(statF0).forEach(([key, values]) => {
-            if (freqTime.hasOwnProperty(values[0])) {
-              traces.push(statTrace(key, values, freqTime[values[0]]));
-            }
-          });
+          const plotColors = [];
 
           const f0Trace = {
             x: times,
@@ -265,7 +261,7 @@ f0PlotBtn.addEventListener("click", async () => {
             mode: "lines",
             name: "f0",
             line: {
-              // color: f0LineCol,
+              color: f0LineCol,
             },
             hoverinfo: "text",
             text: zipArr(f0, times).map(
@@ -274,9 +270,16 @@ f0PlotBtn.addEventListener("click", async () => {
           };
           traces.push(f0Trace);
 
-          const layout = {
-            // plot_bgcolor: pltBckgCol,
+          Object.entries(statF0).forEach(([key, values]) => {
+            if (freqTime.hasOwnProperty(values[0])) {
+              traces.push(statTrace(key, values, freqTime[values[0]]));
+              plotColors.push(plotColorsObj[key]);
+            }
+          });
 
+          console.log(colors);
+
+          const layout = {
             xaxis: {
               title: "Time",
               range: [0, maxTime],
@@ -286,6 +289,17 @@ f0PlotBtn.addEventListener("click", async () => {
             },
             yaxis: {
               title: "F0 freq.",
+            },
+            colorway: plotColors,
+            legend: {
+              orientation: "h",
+              y: -0.3,
+            },
+            margin: {
+              l: 50,
+              r: 20,
+              b: 40,
+              t: 20,
             },
           };
           Plotly.newPlot("f0-plot", traces, layout);

@@ -38,5 +38,12 @@ export function zipToObj(zipArr) {
   }, {});
 }
 
-export const f0LineCol = "#faf9f5";
-export const pltBckgCol = "#000000";
+export const f0LineCol = "#c9bbba";
+
+export const plotColorsObj = {
+  mean: "#5e809b",
+  median: "#85d3d8",
+  mode: "#f5c1bb",
+  max: "#e8a2ae",
+  min: "#da9d89",
+};

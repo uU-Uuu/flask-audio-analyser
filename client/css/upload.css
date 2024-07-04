@@ -9,43 +9,60 @@ h1 {
     text-align: center;
     font-family: var(--title-font);
     padding-bottom: 4vh;
+    margin: 2vh 0;
 }
 
-.upload__title {
-    margin: 3vh 0 2vh 4vh; 
+
+.upload__title-div {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 5vw
+
+}
+
+.upload__title-div-title {
+    margin: 7vh 0 2vh 4vh; 
     font-family: var(--title-font);
     font-size: 1.3em;
 }
 
-.upload__label {
-    margin: 3vh 3vh;
+
+.upload__img {
+    width: 20px;
+    height: 22px;
+    margin-bottom: 2.5vh;
 }
 
+
+.upload__label {
+    margin:  0 2vh 4vh;
+    text-wrap: pretty;
+    font-size: 0.9em;
+    color: var(--lbl-text-color)
+}
 
 .upload__out {
+    margin: 5vh 0;
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    gap: 5vh
 }
 
-
-.upload__cont {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5vw;
-}
-
-
-.upload__input-file {
-    position: absolute;
+.upload__out-input-file {
+    padding-bottom: 2vh ;
     color: transparent;
+    overflow: hidden;
 }
 
-.upload__input-file::file-selector-button,  
-.upload__upload-btn,
-.upload__play-btn {
-    margin: 3vh 3vh;
-    padding: 0 2vw;
+
+
+.upload__out-input-file::-webkit-file-upload-button,  
+.upload__out-upload-btn,
+.upload__out-play-btn {
+    margin: 0 3vh;
+    padding: 0 3vw;
     background: var(--btn-bg-color);
     box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
     border-radius: 2vh;
@@ -56,9 +73,9 @@ h1 {
 }
 
 
-.upload__input-file::file-selector-button:hover,
-.upload__upload-btn:hover,
-.upload__play-btn:hover {
+.upload__out-input-file::file-selector-button:hover,
+.upload__out-upload-btn:hover,
+.upload__out-play-btn:hover {
     border-color: var(--btn-border-color);
     border-width: 1px;
     color: var(--btn-text-color);
@@ -66,40 +83,25 @@ h1 {
 
 
 
-.upload__input-file::file-selector-button:active,
-.upload__upload-btn:active,
-.upload__play-btn:active {
+.upload__out-input-file::file-selector-button:active,
+.upload__out-upload-btn:active,
+.upload__out-play-btn:active {
     border-width: 2px;
 }
 
 
 
-.upload__img {
-    position: relative;
-    width: 25px;
-    height: 30px;
-    display: inline-block;
-    margin-left: 30%;
-}
 
 
-.upload__upload-btn {
- margin-left: 15%;  
- padding: 0 3vw; 
-}
 
 
-.upload__play {
+.upload__out-play {
     visibility: hidden;
     float: inline-end;
 
 }
 
-.upload__play-btn {
-    padding: 0 2vw;
+.upload__out-play-btn {
     visibility: hidden;
 }
 
-.upload__play-audio {
-    margin: 1vh 3vw;
-}

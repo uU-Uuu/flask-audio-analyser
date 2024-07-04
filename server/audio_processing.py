@@ -6,6 +6,8 @@ from matplotlib import pyplot as plt
 from matplotlib import image as mpimg
 from pathlib import Path
 
+from assist import custom_cmap
+
 
 IMG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'imgs'))
 
@@ -34,7 +36,7 @@ def basic_spectrogram(audiofile):
     S_db = librosa.power_to_db(S, ref=np.max)
     img = librosa.display.specshow(S_db, x_axis='time',
                                    y_axis='mel', sr=sr,
-                                   fmax=8000, ax=ax)
+                                   fmax=8000, ax=ax, cmap=custom_cmap)
     fig.colorbar(img, ax=ax, format='%+2.0f dB')
     ax.set(title='Mel-frequency spectrogram')
 
@@ -48,8 +50,6 @@ def extract_f0(audiofile, fmin=85, fmax=300, get_times=False):
                                                  fmin=fmin,
                                                  fmax=fmax)
     times = librosa.times_like(f0, sr=sr)
-    # voiced_flag_b = list(map(bool, voiced_flag))
-    # return  tuple(map(lambda li: np.nan_to_num(li).tolist(), (f0, voiced_flag, voiced_flag_b, times)))
     if get_times:
         return np.nan_to_num(f0).tolist(), np.nan_to_num(times).tolist()
 
@@ -65,7 +65,7 @@ def f0_spectrogram(audiofile):
     times = librosa.times_like(f0, sr=sr)
     D = librosa.amplitude_to_db(np.abs(librosa.stft(y)))
     fig, ax = plt.subplots()
-    img = librosa.display.specshow(D, x_axis='time', y_axis='log', ax=ax, cmap='magma')
+    img = librosa.display.specshow(D, x_axis='time', y_axis='log', ax=ax, cmap=custom_cmap)
     ax.set(title='pYIN fundamental frequency estimation')
     fig.colorbar(img, ax=ax, format='%+2.f dB')
     ax.plot(times, f0, label='f0', color='white', linewidth=3)
@@ -73,6 +73,3 @@ def f0_spectrogram(audiofile):
     return save_img(file=audiofile, fig=fig, spec='f0')
 
 
-
-if __name__ == '__main__':
-    pass

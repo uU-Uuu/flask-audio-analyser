@@ -1,11 +1,11 @@
 import { BASE_URL } from "./env.js";
 import { getFileIdFromStorage, endSession } from "./common.js";
 
-const fileInput = document.querySelector(".upload__input-file");
-const uploadBtn = document.querySelector(".upload__upload-btn");
-const playBtn = document.querySelector(".upload__play-btn");
+const fileInput = document.querySelector(".upload__out-input-file");
+const uploadBtn = document.querySelector(".upload__out-upload-btn");
+const playBtn = document.querySelector(".upload__out-play-btn");
 const uploadLbl = document.querySelector(".upload__label");
-const audioCont = document.querySelector(".upload__play");
+const audioCont = document.querySelector(".upload__out-play");
 
 uploadBtn.addEventListener("click", async () => {
   const uploadedFile = fileInput.files[0];
@@ -68,8 +68,8 @@ playBtn.addEventListener("click", () => {
       if (blob instanceof Blob) {
         const url = URL.createObjectURL(blob);
         audioCont.style.visibility = "visible";
-        audioCont.innerHTML += `
-            <audio class="upload__play-audio" controls src="${url}"></audio>
+        audioCont.innerHTML = `
+            <audio class="upload__out-play-audio" controls src="${url}"></audio>
             `;
       } else {
         return;

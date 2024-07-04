@@ -11,14 +11,31 @@
     scroll-behavior: smooth;
 
     --title-font: "Montserrat Subrayada", sans-serif;
-    --btn-bg-color: #ade0e357;
+    --btn-bg-color: #c8d9d690;
     --btn-shadow-color1: rgba(50, 50, 93, 0.25);
     --btn-shadow-color2:  rgba(0, 0, 0, 0.3);
     --btn-border-color: #151e21;
     --btn-text-color: #151e21;
-    --checkbx-accent-color: #7294a9a1;
+    --checkbx-accent-color: #abbcb9be;
+    --row-accent-color: #85abc363;
+    --play-btn-bg-color: #7294a9a1;
+    --lbl-text-color: #b6b3b3;
+
+    --mean-color: #5e809ba2;
+    --median-color: #85d2d8a3;
+    --mode-color: #f5c1bb92;
+    --max-color: #bc969d9d;
+    --min-color: #da9d8994;
+
+    --mean-weak-color: #5e809b30;
+    --median-weak-color: #85d2d82a;
+    --mode-weak-color: #f5c1bb37;
+    --max-weak-color: #bc969d27;
+    --min-weak-color: #da9d8933;
 
 }
+
+
 
 body {
 

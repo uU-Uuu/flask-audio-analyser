@@ -2,6 +2,8 @@ import os
 from flask import jsonify, request
 from datetime import datetime, timedelta
 import re
+from matplotlib.colors import LinearSegmentedColormap
+
 
 from config import ALLOWED_EXTENSIONS, UPLOAD_FOLDER, IMG_FOLDER, SESSION_TIME
 
@@ -19,7 +21,13 @@ def time_diff(time_cust_str, time_ref=datetime.now(), format='%H%M'):
     time_curr_str = time_ref.strftime(format)
     time_curr = datetime.strptime(time_curr_str, format)
     time_cust = datetime.strptime(time_cust_str, format)
-    return abs(time_curr - time_cust)
+    diff =  abs(time_curr - time_cust)
+    if time_curr < time_cust:
+        circular_diff = abs(time_cust - time_curr.replace(hour=0, minute=0))
+        return min(diff, circular_diff)
+    else:
+        return diff
+
 
 
 def uploads_cleaner(dir):
@@ -47,7 +55,7 @@ def get_file_by_id(func):
             uploads_cleaner(IMG_FOLDER)
 
             if time_diff(uploaded_time) > timedelta(minutes=SESSION_TIME):
-                print('-SESSION--------', time_diff(uploaded_time), timedelta(minutes=SESSION_TIME))
+                print('-SESSION--------', uploaded_time, time_diff(uploaded_time), timedelta(minutes=SESSION_TIME))
                 return jsonify({'message': 'Session has expired. Please upload again'})
             
             file_path = os.path.join(UPLOAD_FOLDER, f'{file_id}.wav')
@@ -60,3 +68,10 @@ def get_file_by_id(func):
     return inner
 
 
+# col_list = [ "#5e809b", "#8db1bd",  "#85d3d8",  "#f5c1bb",  "#e8a2ae",  "#da9d89"]
+col_list = [(0.369, 0.502, 0.608), (0.553, 0.694, 0.741), (0.522, 0.827, 0.847), 
+            (0.961, 0.757, 0.733), (0.91, 0.635, 0.682), (0.929, 0.694, 0.569
+)]
+positions = [0.0, 0.2, 0.4, 0.6, 0.8, 1]
+
+custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", list(zip(positions, col_list)))
