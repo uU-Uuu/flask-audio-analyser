@@ -166,3 +166,10 @@ button.median:active {
 .xy {
     width: 90vw;
 }
+
+
+.f0__spectrogram-cont,
+.f0__f0-spectrogram-cont {
+    display: flex;
+    justify-content: center;
+}

@@ -277,8 +277,6 @@ f0PlotBtn.addEventListener("click", async () => {
             }
           });
 
-          console.log(colors);
-
           const layout = {
             xaxis: {
               title: "Time",

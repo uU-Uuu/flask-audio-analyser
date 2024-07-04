@@ -11,6 +11,9 @@
     scroll-behavior: smooth;
 
     --title-font: "Montserrat Subrayada", sans-serif;
+
+    --bg-color: rgba(215, 241, 236, 0.264);
+
     --btn-bg-color: #c8d9d690;
     --btn-shadow-color1: rgba(50, 50, 93, 0.25);
     --btn-shadow-color2:  rgba(0, 0, 0, 0.3);
@@ -39,6 +42,7 @@
 
 body {
 
+    background: var(--bg-color);
 }
 
 img {

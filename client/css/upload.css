@@ -36,7 +36,7 @@ h1 {
 
 
 .upload__label {
-    margin:  0 2vh 4vh;
+    margin:  0 4vh 4vh;
     text-wrap: pretty;
     font-size: 0.9em;
     color: var(--lbl-text-color)
@@ -90,11 +90,6 @@ h1 {
 }
 
 
-
-
-
-
-
 .upload__out-play {
     visibility: hidden;
     float: inline-end;
@@ -105,3 +100,6 @@ h1 {
     visibility: hidden;
 }
 
+.upload__out-play-audio {
+    max-width: 100%;
+}
