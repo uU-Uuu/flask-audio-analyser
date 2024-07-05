@@ -92,7 +92,7 @@ function calculateF0(data) {
   return f0Values;
 }
 
-function retrieveSpectrogram(url, div) {
+function retrieveSpectrogram(url, div, className) {
   const storedID = getFileIdFromStorage();
   if (!storedID) {
     document.querySelector(".f0__label").innerHTML = "No file selected.";
@@ -121,7 +121,7 @@ function retrieveSpectrogram(url, div) {
         const url = URL.createObjectURL(blob);
         const spectroCont = document.querySelector(div);
         spectroCont.innerHTML = `
-            <img src="${url}" alt="Spectrogram">
+            <img class="${className}" src="${url}" alt="Spectrogram">
             `;
       } else {
         return;
@@ -326,9 +326,17 @@ document
   });
 
 spectrBtn.addEventListener("click", async () => {
-  retrieveSpectrogram("spectrogram", ".f0__spectrogram-cont");
+  retrieveSpectrogram(
+    "spectrogram",
+    ".f0__spectrogram-cont",
+    "f0__spectrogram-cont-img"
+  );
 });
 
 spectrF0Btn.addEventListener("click", async () => {
-  retrieveSpectrogram("f0/spectrogram", ".f0__f0-spectrogram-cont");
+  retrieveSpectrogram(
+    "f0/spectrogram",
+    ".f0__f0-spectrogram-cont",
+    "f0__spectrogram-cont-f0img"
+  );
 });

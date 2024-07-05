@@ -88,8 +88,8 @@ function isUploaded() {
     uploadLbl.innerHTML = "";
     document.querySelector(".upload__img").style.visibility = "visible";
   } else {
-    playBtn.style.visibility = "hidden";
-    document.querySelector(".upload__img").style.visibility = "hidden";
+    playBtn.style.visibility = "none";
+    document.querySelector(".upload__img").style.visibility = "none";
   }
 }
 

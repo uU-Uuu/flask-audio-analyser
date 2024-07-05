@@ -7,13 +7,13 @@
 }
 
 .f0__title {
-    margin: 3vh 0 5vh 4vh; 
+    margin: 3vh 0 3vh 4vh; 
     font-family: var(--title-font);
     font-size: 1.3em;
 }
 
 .f0__label {
-    margin: 0 0 2vh 4vh;
+    margin: 0 0 3vh 4vh;
     text-wrap: pretty;
     font-size: 0.9em;
     color: var(--lbl-text-color)
@@ -57,6 +57,7 @@
     margin: 2vh 5vw 1vh;
     display: flex;
     gap: 3vw;
+    justify-content: space-evenly;
 
 }
 
@@ -72,12 +73,9 @@
     margin: 1vh;
 }
 
-
-
-
 .f0__tablecont-table {
     visibility: collapse;
-    margin-left: 3vh;
+    margin: auto;
     width: 90%;
     float: center;
     text-align: left;
@@ -87,8 +85,6 @@
 th, td {
     padding: 1vh;
 }
-
-
 
 
 .f0__tablecont-table-playbtn {
@@ -167,9 +163,149 @@ button.median:active {
     width: 90vw;
 }
 
+.f0__plot {
+    margin: auto;
+}
+
 
 .f0__spectrogram-cont,
 .f0__f0-spectrogram-cont {
-    display: flex;
-    justify-content: center;
+    background-color: var(--img-bg-color);
+    margin: auto;
+}
+
+
+.f0__spectrogram-cont-img,
+.f0__spectrogram-cont-f0img {
+    margin: auto;
+}
+
+
+@media (min-width: 500px) {
+    .f0__tablecont {
+        margin-left: 5vw;
+    }
+}
+
+@media (min-width: 550px) {
+    .f0__f0-btn,
+    .f0__f0-plot-btn,
+    .f0__f0-spectro-btn,
+    .f0__spectro-btn,
+    .f0__check {
+        margin: 3vh 10vh;
+    }
+
+    .f0__title,
+    .f0__label {
+        margin-left: 11vh;
+    }
+
+    .f0__tablecont {
+        margin-left: 7vw;
+    }
+}
+
+
+@media (min-width: 700px) {
+    .f0__f0-btn,
+    .f0__f0-plot-btn,
+    .f0__f0-spectro-btn,
+    .f0__spectro-btn,
+    .f0__check {
+        margin: 4vh 17vh;
+    }
+
+    .f0__title,
+    .f0__label {
+        margin-left: 18vh;
+    }
+
+    .f0__tablecont {
+        margin-left: 11vw;
+        margin-right: 5vw ;
+    }
+
+    .f0__plot,
+    .f0__spectrogram-cont,
+    .f0__f0-spectrogram-cont {
+        width: 75vw;
+    }
+}
+
+@media (min-width: 800px) {
+    .f0__plot,
+    .f0__spectrogram-cont,
+    .f0__f0-spectrogram-cont {
+        width: 70vw
+    }
+
+    .f0 {
+        padding: 2vw 5vw;
+    }
+}
+
+
+@media (min-width: 900px) {
+    .f0__f0-btn,
+    .f0__f0-plot-btn,
+    .f0__f0-spectro-btn,
+    .f0__spectro-btn,
+    .f0__check {
+        margin: 4vh 22vh;
+    }
+
+    .f0__title {
+        margin: auto;
+    }
+
+    .f0__label {
+        margin: 4vh 22vh
+    }
+
+    .f0__tablecont {
+        margin-left: 13vw;
+        margin-right: 6vw ;
+    }
+
+    .f0__plot,
+    .f0__spectrogram-cont,
+    .f0__f0-spectrogram-cont {
+        width: 60vw;
+    }
+}
+
+@media (min-width: 1050px) {
+    .f0__f0-btn,
+    .f0__f0-plot-btn,
+    .f0__f0-spectro-btn,
+    .f0__spectro-btn,
+    .f0__check {
+        width: 40vw;
+        margin: 5vh auto;
+    }
+
+    .f0__tablecont {
+        width: 40vw;
+        margin: auto;
+        padding-left: 4vw;
+    }
+
+    .f0__label {
+        margin: 4vh 30%
+    }
+
+}
+
+
+@media (min-width: 1700px) {
+    .f0__plot,
+    .f0__spectrogram-cont,
+    .f0__f0-spectrogram-cont {
+        width: 900px;
+    }
+
+    .f0__label {
+        margin: 4vh 10%
+    }
 }

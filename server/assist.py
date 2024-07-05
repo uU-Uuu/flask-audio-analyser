@@ -17,11 +17,13 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower())
 
 
-def time_diff(time_cust_str, time_ref=datetime.now(), format='%H%M'):
+def time_diff(time_cust_str, format='%H%M'):
+    time_ref=datetime.now()
     time_curr_str = time_ref.strftime(format)
     time_curr = datetime.strptime(time_curr_str, format)
     time_cust = datetime.strptime(time_cust_str, format)
     diff =  abs(time_curr - time_cust)
+    print('inside--- ',time_curr_str, time_cust_str)
     if time_curr < time_cust:
         circular_diff = abs(time_cust - time_curr.replace(hour=0, minute=0))
         return min(diff, circular_diff)
@@ -55,7 +57,7 @@ def get_file_by_id(func):
             uploads_cleaner(IMG_FOLDER)
 
             if time_diff(uploaded_time) > timedelta(minutes=SESSION_TIME):
-                print('-SESSION--------', uploaded_time, time_diff(uploaded_time), timedelta(minutes=SESSION_TIME))
+                print('-SESSION--------', uploaded_time, datetime.now(), time_diff(uploaded_time), timedelta(minutes=SESSION_TIME))
                 return jsonify({'message': 'Session has expired. Please upload again'})
             
             file_path = os.path.join(UPLOAD_FOLDER, f'{file_id}.wav')
@@ -75,3 +77,7 @@ col_list = [(0.369, 0.502, 0.608), (0.553, 0.694, 0.741), (0.522, 0.827, 0.847),
 positions = [0.0, 0.2, 0.4, 0.6, 0.8, 1]
 
 custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", list(zip(positions, col_list)))
+
+
+if __name__ == '__main__':
+    pass

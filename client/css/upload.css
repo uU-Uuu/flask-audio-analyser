@@ -1,6 +1,5 @@
 .upload {
     padding: 3vw 5vw;
-    margin-top: -57%;
 }
 
 
@@ -16,13 +15,14 @@ h1 {
 .upload__title-div {
     display: flex;
     flex-direction: row;
+    justify-content: start;
     align-items: end;
-    gap: 5vw
-
+    align-content: center;
+    gap: 5vw;
+    margin: 0 3vh
 }
 
 .upload__title-div-title {
-    margin: 7vh 0 2vh 4vh; 
     font-family: var(--title-font);
     font-size: 1.3em;
 }
@@ -31,19 +31,19 @@ h1 {
 .upload__img {
     width: 20px;
     height: 22px;
-    margin-bottom: 2.5vh;
+    margin-bottom: 0.5vh;
 }
 
 
 .upload__label {
-    margin:  0 4vh 4vh;
+    margin: auto 4vh 3vh;
     text-wrap: pretty;
     font-size: 0.9em;
     color: var(--lbl-text-color)
 }
 
 .upload__out {
-    margin: 5vh 0;
+    margin: 5vh auto auto auto; 
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -53,12 +53,24 @@ h1 {
 .upload__out-input-file {
     padding-bottom: 2vh ;
     color: transparent;
-    overflow: hidden;
+    overflow: hidden;    
 }
 
 
+.upload__out-input-file::-webkit-file-upload-button {
+    margin: auto;
+    border-width: 0;
+    border-radius: 2vh;
+    height: 5vh;
+    text-align: center;
+    font-weight: 600;
+    background-color: transparent;
+    width: 100%;
+    background: var(--btn-bg-color);
+    box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
+}
 
-.upload__out-input-file::-webkit-file-upload-button,  
+.upload__out-input-file,
 .upload__out-upload-btn,
 .upload__out-play-btn {
     margin: 0 3vh;
@@ -73,7 +85,7 @@ h1 {
 }
 
 
-.upload__out-input-file::file-selector-button:hover,
+.upload__out-input-file::-webkit-file-upload-button:hover,
 .upload__out-upload-btn:hover,
 .upload__out-play-btn:hover {
     border-color: var(--btn-border-color);
@@ -83,7 +95,7 @@ h1 {
 
 
 
-.upload__out-input-file::file-selector-button:active,
+.upload__out-input-file::-webkit-file-upload-button:active,
 .upload__out-upload-btn:active,
 .upload__out-play-btn:active {
     border-width: 2px;
@@ -91,15 +103,106 @@ h1 {
 
 
 .upload__out-play {
-    visibility: hidden;
+    visibility: none;
     float: inline-end;
+    margin: auto 3vh;
 
 }
 
 .upload__out-play-btn {
-    visibility: hidden;
+    visibility: none;
 }
 
 .upload__out-play-audio {
-    max-width: 100%;
+    margin-top: 0.5vh;
+    width: 100%;
+
+}
+
+
+@media (min-width: 550px) {
+
+    .upload__out-upload-btn,
+    .upload__out-play-btn,
+    .upload__out-input-file,
+    .upload__out-play {
+        margin: 3vh 10vh;
+    }
+
+    .upload__out-input-file::-webkit-file-upload-button {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .upload__title-div,
+    .upload__label {
+        margin-left: 11vh;
+    }
+
+    .upload__out {
+        gap: 1vh;
+    }
+}
+
+
+@media (min-width: 700px) {
+    
+    .upload__out-input-file,  
+    .upload__out-upload-btn,
+    .upload__out-play-btn,
+    .upload__out-play {
+        margin: 4vh 17vh;
+    }
+
+    .upload__title-div,
+    .upload__label {
+        margin-left: 18vh;
+    }
+}
+
+
+@media (min-width: 900px) {
+    
+    .upload__out-input-file,  
+    .upload__out-upload-btn,
+    .upload__out-play-btn,
+    .upload__out-play {
+        margin: 4vh 22vh;
+    }
+
+    .upload__title-div {
+        margin: auto;
+        justify-content: center;
+    }
+
+    .upload__label {
+        margin: 4vh 22vh
+    }
+}
+
+@media (min-width: 1050px) {
+
+    .upload__out-input-file,  
+    .upload__out-upload-btn,
+    .upload__out-play-btn,
+    .upload__out-play {
+        width: 40vw;
+        margin: 5vh auto;
+    }
+
+    .upload__tablecont {
+        width: 40vw;
+        margin: auto;
+        padding-left: 4vw;
+    }
+
+    .upload__label {
+        margin: 4vh 30%
+    }
+}
+
+@media (min-width: 1700px) {
+    .upload__label {
+        margin: 4vh 10%
+    }
 }
