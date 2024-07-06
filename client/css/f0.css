@@ -123,23 +123,34 @@ tr.mode:hover {
 
 
 
-button.min {
+button.min,
+button.min:active,
+button.min:hover {
     background-color: var(--min-color);
 }
 
-button.max {
+
+button.max,
+button.max:active,
+button.max:hover {
     background-color: var(--max-color);
 }
 
-button.mean {
+button.mean,
+button.mean:active,
+button.mean:hover {
     background-color: var(--mean-color);
 }
 
-button.median {
+button.median,
+button.median:active,
+button.median:hover  {
     background-color: var(--median-color);
 }
 
-button.mode {   
+button.mode,
+button.mode:active,
+button.mode:hover {   
     background-color: var(--mode-color);
 }
 
@@ -149,7 +160,9 @@ button.mean:hover,
 button.mode:hover, 
 button.median:hover {
     box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
+    opacity: 0.85;
 }
+
 
 button.min:active, 
 button.max:active, 
@@ -157,6 +170,7 @@ button.mean:active,
 button.mode:active, 
 button.median:active {
     box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
+    opacity: 1;
 }
 
 

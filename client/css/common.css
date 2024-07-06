@@ -14,7 +14,9 @@
 
     --bg-color: rgba(215, 241, 236, 0.264);
 
-    --btn-bg-color: #c8d9d690;
+    --btn-bg-color: #c8d9d690; 
+    --btn-hover-bg-color: #d5eae5a6;
+
     --btn-shadow-color1: rgba(50, 50, 93, 0.25);
     --btn-shadow-color2:  rgba(0, 0, 0, 0.3);
     --btn-border-color: #151e21;
@@ -38,6 +40,9 @@
 
     --img-bg-color: #ffffff;
 
+    --footer-bg-color: #abbcb9be;
+    --footer-hover-color: #d5eae5a6;
+
 }
 
 
@@ -59,4 +64,26 @@ img {
 
 a {
     text-decoration: none;
+}
+
+
+
+button:hover, 
+input:hover{
+    cursor: pointer;
+    background-color: var(--btn-hover-bg-color);
+    border: none
+}
+
+
+button:active, 
+input:active {
+    cursor: pointer;
+    background-color: var(--btn-bg-color);
+    border: none
+}
+
+button, 
+input {
+    background-color: var(--btn-bg-color);
 }

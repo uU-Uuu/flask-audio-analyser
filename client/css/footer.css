@@ -1,0 +1,17 @@
+.footer {
+    margin: auto;
+}
+
+.socialmedia__github img{
+    width: 35px;
+    height: auto;
+    margin: 0 auto 3vh;
+    background-color: var(--footer-bg-color);
+    border-radius: 6vh;
+}
+
+
+.socialmedia__github img:hover {
+    background-color: var(--footer-hover-color);
+    box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
+}

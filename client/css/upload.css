@@ -66,10 +66,12 @@ h1 {
     height: 5vh;
     text-align: center;
     font-weight: 600;
-    background-color: transparent;
     width: 100%;
-    background: var(--btn-bg-color);
-    box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
+    background: transparent;
+}
+
+.upload__out-input-file::-webkit-file-upload-button:hover {
+    cursor: pointer;
 }
 
 .upload__out-input-file,
@@ -77,30 +79,12 @@ h1 {
 .upload__out-play-btn {
     margin: 0 3vh;
     padding: 0 3vw;
-    background: var(--btn-bg-color);
     box-shadow: var(--btn-shadow-color1) 0px 6px 12px -2px, var(--btn-shadow-color1) 0px 3px 7px -3px;
     border-radius: 2vh;
     border-width: 0;
     height: 5vh;
     text-align: center;
     font-weight: 600;
-}
-
-
-.upload__out-input-file::-webkit-file-upload-button:hover,
-.upload__out-upload-btn:hover,
-.upload__out-play-btn:hover {
-    border-color: var(--btn-border-color);
-    border-width: 1px;
-    color: var(--btn-text-color);
-}
-
-
-
-.upload__out-input-file::-webkit-file-upload-button:active,
-.upload__out-upload-btn:active,
-.upload__out-play-btn:active {
-    border-width: 2px;
 }
 
 
