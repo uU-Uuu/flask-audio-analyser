@@ -16,7 +16,8 @@
     margin: 0 0 3vh 4vh;
     text-wrap: pretty;
     font-size: 0.9em;
-    color: var(--lbl-text-color)
+    color: var(--lbl-text-color);
+    display: none;
 }
 
 .f0__f0-btn,

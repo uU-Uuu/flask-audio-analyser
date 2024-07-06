@@ -3,6 +3,7 @@ export function getFileIdFromStorage() {
 }
 
 export function endSession(lbl) {
+  lbl.style.display = "block";
   lbl.innerHTML = "Session has expired. Please upload the file again.";
   document.querySelector(".f0__tablecont-table").style.visibility = "collapse";
   document.querySelector(".f0__plot").style.display = "none";

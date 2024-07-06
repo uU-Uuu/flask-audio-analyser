@@ -95,7 +95,8 @@ function calculateF0(data) {
 function retrieveSpectrogram(url, div, className) {
   const storedID = getFileIdFromStorage();
   if (!storedID) {
-    document.querySelector(".f0__label").innerHTML = "No file selected.";
+    f0Lbl.innerHTML = "No file selected."
+    f0Lbl.style.display = "block";
     return;
   }
 
@@ -130,6 +131,7 @@ function retrieveSpectrogram(url, div, className) {
 
     .catch((err) => {
       f0Lbl.innerHTML = "Something went wrong.";
+      f0Lbl.display = "block";
       console.error("Fetch error: ", err);
     });
 }
@@ -171,7 +173,8 @@ f0Btn.addEventListener("click", async () => {
   const storedID = getFileIdFromStorage();
 
   if (!storedID) {
-    document.querySelector(".f0__label").innerHTML = "No file selected.";
+    f0Lbl.innerHTML = "No file selected."
+    f0Lbl.style.display = "block";
     return;
   }
 
@@ -221,6 +224,7 @@ f0Btn.addEventListener("click", async () => {
 
     .catch((err) => {
       f0Lbl.innerHTML = "Please upload a file.";
+      f0Lbl.display = "block";
       console.error("Fetch error: ", err);
     });
 });
@@ -229,7 +233,8 @@ f0PlotBtn.addEventListener("click", async () => {
   const storedID = getFileIdFromStorage();
 
   if (!storedID) {
-    document.querySelector(".f0__label").innerHTML = "No file selected.";
+    f0Lbl.innerHTML = "No file selected."
+    f0Lbl.style.display = "block";
     return;
   }
 
@@ -310,6 +315,7 @@ f0PlotBtn.addEventListener("click", async () => {
 
     .catch((err) => {
       f0Lbl.innerHTML = "Please upload a file.";
+      f0Lbl.display = "block";
       console.error("Fetch error: ", err);
     });
 });

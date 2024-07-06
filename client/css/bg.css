@@ -1,48 +1,19 @@
 .bg {
-
+    overflow: hidden;
+    margin: 2vh auto;
+    max-width: 95%;
+    border-radius: 6vh;
 }
 
 .bg__img {
-    padding: 2vh 2vh 0 2vh;
-    border-radius: 6vh;
-    max-width: 100%;
+    object-fit: cover;
 }
 
-
-@media (min-width: 500px) {
-   
-}
 
 @media (min-width: 550px) {
 
     .bg {
-        /* height: 30vh; */
-    }
-    .bg__img {
-
-    }
-    
-}
-
-
-@media (min-width: 700px) {
-    
-}
-
-@media (min-width: 800px) {
-
-}
-
-
-@media (min-width: 900px) {
-
-}
-
-@media (min-width: 1050px) {
-    
-}
-
-
-@media (min-width: 1700px) {
-
+        height: 30vh;
+        margin: 2vh auto
+   }
 }

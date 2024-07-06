@@ -141,6 +141,11 @@ h1 {
 
     .upload__out {
         gap: 1vh;
+        margin-top: auto
+    }
+
+    .upload {
+        padding-top: 1vh;
     }
 }
 

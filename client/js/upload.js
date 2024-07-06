@@ -10,6 +10,7 @@ const uploadImg = document.querySelector(".upload__img");
 
 fileInput.addEventListener("click", () => {
   uploadLbl.innerHTML = "";
+  uploadLbl.style.display = "none";
   uploadImg.style.display = "none";
   playBtn.style.display = "none";
   audioCont.style.display = "none";
@@ -18,6 +19,7 @@ fileInput.addEventListener("click", () => {
 
 fileInput.addEventListener("change", () => {
   uploadLbl.innerHTML = "";
+  uploadLbl.style.display = "none";
   if (fileInput.files[0]) {
     uploadImg.style.display = "block";
     uploadImg.style.opacity = 0.3;
@@ -29,6 +31,7 @@ uploadBtn.addEventListener("click", async () => {
 
   if (!uploadedFile) {
     uploadLbl.innerHTML = "No file selected.";
+    uploadLbl.style.display = "block";
     uploadImg.style.display = "none";
     return;
   }
@@ -47,6 +50,7 @@ uploadBtn.addEventListener("click", async () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       document.querySelector(".f0__label").innerHTML = "";
+      document.querySelector(".f0__label").style.display = "none";
       return response.json();
     })
 
@@ -58,6 +62,7 @@ uploadBtn.addEventListener("click", async () => {
     .catch((err) => {
       console.error(err);
       uploadLbl.innerHTML = "Error uploading file";
+      uploadLbl.style.display = "block";
     });
 });
 
@@ -66,6 +71,7 @@ playBtn.addEventListener("click", () => {
 
   if (!storedID) {
     uploadLbl.innerHTML = "No file selected.";
+    uploadLbl.style.display = "block";
     return;
   }
 
@@ -97,6 +103,7 @@ playBtn.addEventListener("click", () => {
     })
     .catch((err) => {
       uploadLbl.innerHTML = "Something went wrong.";
+      uploadLbl.style.display = "block";
       console.error("Fetch error: ", err);
     });
 });
@@ -106,6 +113,7 @@ function isUploaded() {
   if (stored) {
     playBtn.style.display = "block";
     uploadLbl.innerHTML = "";
+    uploadLbl.style.display = "none";
     uploadImg.style.display = "block";
   } else {
     audioCont.style.display = "none";
