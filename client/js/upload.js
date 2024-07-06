@@ -15,9 +15,11 @@ fileInput.addEventListener("click", () => {
   playBtn.style.display = "none";
   audioCont.style.display = "none";
   sessionStorage.clear();
+  fileInput.value = "";
 });
 
-fileInput.addEventListener("change", () => {
+fileInput.addEventListener("input", () => {
+  console.log("input");
   uploadLbl.innerHTML = "";
   uploadLbl.style.display = "none";
   if (fileInput.files[0]) {
