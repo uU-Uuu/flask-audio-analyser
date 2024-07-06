@@ -4,6 +4,14 @@ export function getFileIdFromStorage() {
 
 export function endSession(lbl) {
   lbl.innerHTML = "Session has expired. Please upload the file again.";
+  document.querySelector(".f0__tablecont-table").style.visibility = "collapse";
+  document.querySelector(".f0__plot").style.display = "none";
+  document.querySelector(".f0__f0-spectrogram-cont").innerHTML = "";
+  document.querySelector(".f0__spectrogram-cont").innerHTML = "";
+
+  document.querySelector(".upload__img").style.display = "none";
+  document.querySelector(".upload__out-play-btn").style.display = "none";
+  document.querySelector(".upload__out-play").style.display = "none";
   sessionStorage.clear();
 }
 

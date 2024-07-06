@@ -300,6 +300,7 @@ f0PlotBtn.addEventListener("click", async () => {
               t: 20,
             },
           };
+          document.querySelector(".f0__plot").style.display = "block";
           Plotly.newPlot("f0-plot", traces, layout);
         } catch (err) {
           console.log(err);

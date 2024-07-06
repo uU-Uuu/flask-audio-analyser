@@ -25,13 +25,15 @@ h1 {
 .upload__title-div-title {
     font-family: var(--title-font);
     font-size: 1.3em;
+    margin-bottom: 3vh;
 }
 
 
 .upload__img {
     width: 20px;
     height: 22px;
-    margin-bottom: 0.5vh;
+    margin-bottom: 3.5vh;
+    display: none;
 }
 
 
@@ -103,15 +105,13 @@ h1 {
 
 
 .upload__out-play {
-    visibility: none;
     float: inline-end;
     margin: auto 3vh;
-
+    display: none;
 }
 
 .upload__out-play-btn {
-    visibility: none;
-}
+    display: none;}
 
 .upload__out-play-audio {
     margin-top: 0.5vh;

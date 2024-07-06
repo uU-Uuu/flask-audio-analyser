@@ -13,6 +13,9 @@ IMG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'imgs'))
 
 
 def to_wav(src_mp3, out_wav):
+    """
+    mp3 to wav converter
+    """
     try:
         audio = AudioSegment.from_mp3(src_mp3)
         audio.export(out_wav, format='wav')
@@ -23,27 +26,21 @@ def to_wav(src_mp3, out_wav):
     
 
 def save_img(file, fig, spec=''):
+    """
+    save img in the IMG folder
+    return destination path
+    """
     img_path = f'{IMG_PATH}\{Path(file).stem}{spec}.jpeg'
     plt.savefig(img_path)
     plt.close(fig)
     return img_path
 
 
-def basic_spectrogram(audiofile):
-    y, sr = librosa.load(audiofile)
-    S = librosa.feature.melspectrogram(y=y, sr=sr)
-    fig, ax = plt.subplots()
-    S_db = librosa.power_to_db(S, ref=np.max)
-    img = librosa.display.specshow(S_db, x_axis='time',
-                                   y_axis='mel', sr=sr,
-                                   fmax=8000, ax=ax, cmap=custom_cmap)
-    fig.colorbar(img, ax=ax, format='%+2.0f dB')
-    ax.set(title='Mel-frequency spectrogram')
-
-    return save_img(file=audiofile, fig=fig)
-
-
 def extract_f0(audiofile, fmin=85, fmax=300, get_times=False):
+    """
+    f0 measures from an audio file
+    get_times=True to get times list for plot
+    """
     y, sr = librosa.load(audiofile)
     f0, voiced_flag, voiced_prob = librosa.pyin(y=y,
                                                  sr=sr,
@@ -57,6 +54,9 @@ def extract_f0(audiofile, fmin=85, fmax=300, get_times=False):
 
 
 def f0_spectrogram(audiofile):
+    """
+    f0 pyin spectrogram as img
+    """
     y, sr = librosa.load(librosa.ex('trumpet'))
     f0, voiced_flag, voiced_probs = librosa.pyin(y,
                                                 sr=sr,
@@ -73,3 +73,18 @@ def f0_spectrogram(audiofile):
     return save_img(file=audiofile, fig=fig, spec='f0')
 
 
+def basic_spectrogram(audiofile):
+    """
+    melspectrogram as img
+    """
+    y, sr = librosa.load(audiofile)
+    S = librosa.feature.melspectrogram(y=y, sr=sr)
+    fig, ax = plt.subplots()
+    S_db = librosa.power_to_db(S, ref=np.max)
+    img = librosa.display.specshow(S_db, x_axis='time',
+                                   y_axis='mel', sr=sr,
+                                   fmax=8000, ax=ax, cmap=custom_cmap)
+    fig.colorbar(img, ax=ax, format='%+2.0f dB')
+    ax.set(title='Mel-frequency spectrogram')
+
+    return save_img(file=audiofile, fig=fig)

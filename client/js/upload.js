@@ -6,14 +6,34 @@ const uploadBtn = document.querySelector(".upload__out-upload-btn");
 const playBtn = document.querySelector(".upload__out-play-btn");
 const uploadLbl = document.querySelector(".upload__label");
 const audioCont = document.querySelector(".upload__out-play");
+const uploadImg = document.querySelector(".upload__img");
+
+fileInput.addEventListener("click", () => {
+  uploadLbl.innerHTML = "";
+  uploadImg.style.display = "none";
+  playBtn.style.display = "none";
+  audioCont.style.display = "none";
+  sessionStorage.clear();
+});
+
+fileInput.addEventListener("change", () => {
+  uploadLbl.innerHTML = "";
+  if (fileInput.files[0]) {
+    uploadImg.style.display = "block";
+    uploadImg.style.opacity = 0.3;
+  }
+});
 
 uploadBtn.addEventListener("click", async () => {
   const uploadedFile = fileInput.files[0];
 
   if (!uploadedFile) {
     uploadLbl.innerHTML = "No file selected.";
+    uploadImg.style.display = "none";
     return;
   }
+
+  uploadImg.style.opacity = 1;
 
   const formData = new FormData();
   formData.append("file", uploadedFile);
@@ -67,7 +87,7 @@ playBtn.addEventListener("click", () => {
     .then((blob) => {
       if (blob instanceof Blob) {
         const url = URL.createObjectURL(blob);
-        audioCont.style.visibility = "visible";
+        audioCont.style.display = "block";
         audioCont.innerHTML = `
             <audio class="upload__out-play-audio" controls src="${url}"></audio>
             `;
@@ -84,12 +104,13 @@ playBtn.addEventListener("click", () => {
 function isUploaded() {
   const stored = getFileIdFromStorage();
   if (stored) {
-    playBtn.style.visibility = "visible";
+    playBtn.style.display = "block";
     uploadLbl.innerHTML = "";
-    document.querySelector(".upload__img").style.visibility = "visible";
+    uploadImg.style.display = "block";
   } else {
-    playBtn.style.visibility = "none";
-    document.querySelector(".upload__img").style.visibility = "none";
+    audioCont.style.display = "none";
+    playBtn.style.display = "none";
+    uploadImg.style.display = "none";
   }
 }
 

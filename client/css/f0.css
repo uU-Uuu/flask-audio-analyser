@@ -165,6 +165,7 @@ button.median:active {
 
 .f0__plot {
     margin: auto;
+    max-width: 90vw;
 }
 
 
