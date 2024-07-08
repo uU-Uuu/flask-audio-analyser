@@ -290,6 +290,8 @@ client/js/env.js
 node_modules
 node_modules/*
 
+.env
+
 .vscode
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,flask
