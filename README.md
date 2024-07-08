@@ -3,7 +3,7 @@
 Full-stack web application:
 
 - Python API Flask
-- JavaScript, Tone.js
+- JavaScript
 
 ## Features
 
@@ -76,3 +76,6 @@ docker-compose down
 **librosa==0.10.2.post1**
 **pydub==0.25.1**
 **matplotlib==3.7.5**
+
+**plotly.js-dist==^2.33.0**
+**tone==^15.0.4**
