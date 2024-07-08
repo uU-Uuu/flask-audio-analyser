@@ -19,7 +19,6 @@ fileInput.addEventListener("click", () => {
 });
 
 fileInput.addEventListener("input", () => {
-  console.log("input");
   uploadLbl.innerHTML = "";
   uploadLbl.style.display = "none";
   if (fileInput.files[0]) {
