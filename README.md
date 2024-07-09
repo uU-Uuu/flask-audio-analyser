@@ -72,7 +72,7 @@ docker-compose down
 ```
 
 ## UI Overview
-<details>
+<details open>
 <summary>:electric_plug:	</summary>
 <p align="center">
   <img src="scrn/0.PNG" width="400">
