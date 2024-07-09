@@ -73,8 +73,23 @@ docker-compose down
 
 ## UI Overview
 <details>
-<summary>:mag:</summary>
-
+<summary>:electric_plug:	</summary>
+<p align="center">
+  <img src="scrn/0.PNG" width="400">
+</p>
+<p align="center">
+    <img src="scrn/1.PNG" width="400">
+</p>
+<p align="center">
+    <img src="scrn/2.PNG" width="400">
+</p>  
+<p align="center">
+    <img src="scrn/3.PNG" width="400">
+</p>  
+<p align="center">
+    <img src="scrn/4.PNG" width="400">
+</p>  
+  
 </details>
 
 
