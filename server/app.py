@@ -2,7 +2,6 @@ import os
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-import logging
 import uuid
 from datetime import datetime
 from matplotlib import pyplot as plt
@@ -23,7 +22,6 @@ CORS(app)
 app.config.from_object(APIConfig)
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['IMG_FOLDER'], exist_ok=True)
-logging.basicConfig(level=logging.DEBUG)
 
 plt.switch_backend('Agg')
 
