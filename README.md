@@ -16,36 +16,37 @@ Full-stack web application:
 
 ## API Endpoints
 
-- /upload?id={id}&nbsp;&nbsp;&nbsp;&nbsp;POST
-  response:
-  &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;(uuid + time uploaded HM as new file name)
-  uploading file and saving it on the backend
+- POST &nbsp;&nbsp;&nbsp;&nbsp;`/upload`\
+  `{`\
+  `  "id" : "8ca56101-e0fa-4d0c-9419-1f4863c28af1@1839",`\
+  `  "status" : "success"`\
+  `}`\
+  Upload an audio file (saved on the backend under new name)
+  
+- GET &nbsp;&nbsp;&nbsp;&nbsp;`/play?id={id}`\
+  `audio file .wav`\
+  Retrieve the uploaded file by id to play it
 
-- /play&nbsp;&nbsp;&nbsp;&nbsp;GET
-  response:
-  &nbsp;&nbsp;&nbsp;&nbsp;audio file&nbsp;&nbsp;(wav)
-  retrieve uploaded file by id to play it
+- GET &nbsp;&nbsp;&nbsp;&nbsp;`/f0?id={id}`\
+  `{`\
+  `  "f0" : [ 0.0, 0.0, 237.6548888104333, 239.03160957579942, ... ]`\
+  `}`\
+  Retrieve an array of calculated F0 values
 
-- /f0?id={id}&nbsp;&nbsp;&nbsp;&nbsp;GET
-  response:
-  &nbsp;&nbsp;&nbsp;&nbsp;f0&nbsp;&nbsp;(array of F0 values)
-  calculate F0 values
+- GET &nbsp;&nbsp;&nbsp;&nbsp;`/f0/plot?id={id}`\
+  `{`\
+  `  "f0" : [ 0.0, 0.0, 237.6548888104333, 239.03160957579942, ... ],`\
+  `  "times" : [ 0.0, 0.023219954648526078, 0.046439909297052155, ...]`\
+  `}`\
+  Retrieve an array of calculated F0 values and a corresponding array of time values
 
-- /f0/plot?id={id}&nbsp;&nbsp;&nbsp;&nbsp;GET
-  response:
-  &nbsp;&nbsp;&nbsp;&nbsp;f0&nbsp;&nbsp;(array of F0 values)
-  &nbsp;&nbsp;&nbsp;&nbsp;times&nbsp;&nbsp;(array of time values)
-  calculate F0 values and corresponding time values
+- GET &nbsp;&nbsp;&nbsp;&nbsp;`/f0/spectrogram?id={id}`\
+  `img  .jpeg`\
+  Retrieve a pYIN F0 spectrogram image
 
-- /f0/spectrogram?id={id}&nbsp;&nbsp;&nbsp;&nbsp;GET
-  response:
-  &nbsp;&nbsp;&nbsp;&nbsp;img&nbsp;&nbsp;(.jpeg pYIN F0 spectrogram)
-  build pYIN spectrogram
-
-- /spectrogram?id={id}&nbsp;&nbsp;&nbsp;&nbsp;GET
-  response:
-  &nbsp;&nbsp;&nbsp;&nbsp;img&nbsp;&nbsp;(.jpeg melspectrogram)
-  build melspectrogram
+- GET &nbsp;&nbsp;&nbsp;&nbsp;`/spectrogram?id={id}`\
+  `img  .jpeg`\
+  Retrieve a melspectrogram image
 
 ## Run
 
@@ -70,12 +71,18 @@ Stop the application
 docker-compose down
 ```
 
+## UI Overview
+<details>
+<summary>:mag:</summary>
+
+</details>
+
+
 ## Libraries
 
-**Flask==3.0.3**
-**librosa==0.10.2.post1**
-**pydub==0.25.1**
-**matplotlib==3.7.5**
-
-**plotly.js-dist==^2.33.0**
-**tone==^15.0.4**
+Flask == 3.0.3\
+librosa == 0.10.2.post1\
+pydub == 0.25.1\
+\
+plotly.js-dist == 2.33.0\
+tone == 15.0.4
